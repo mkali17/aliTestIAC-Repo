@@ -1,0 +1,3 @@
+[tomcat-nodes]
+54.198.24.87 # Tomcat_webserver_1
+3.238.104.197 # Tomcat_webserver_2
