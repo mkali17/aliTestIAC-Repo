@@ -1,4 +1,4 @@
-// Description pipeline
+//Description pipeline
 pipeline {
   agent any
   stages {
