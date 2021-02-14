@@ -1,11 +1,11 @@
-//  Description pipeline
+//Description pipeline
 pipeline {
   agent any
   stages {
     stage('Submit Stack') { 
       steps {
           catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aliTestJenkinsUserCred01', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aliTestJenkinsUserCredRoot', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
               sh "aws cloudformation deploy --template-file  $workspace/cloudformation/TrainingEvent-ApacheTomCatServer.json --stack-name aliTomCatWeb-Stack-Test --region us-east-1 --parameter-overrides InstanceType=t2.micro KeyName=myTestKeyPair02 SSHLocation=0.0.0.0/0 --tags name=TomCatWeb-Stack-Test"
               //sh "aws cloudformation create-stack --template-body '$workspace/cloudformation/TrainingEvent-UbuntuServer.py' --stack-name TomCatWeb-Stack-Val --region us-east-1 --parameters ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=KeyName,ParameterValue='aliTrainingKeyPair2' ParameterKey=SSHLocation,ParameterValue=0.0.0.0/0"
               //sh "echo SKIPPING INFRASTRUCTURE CREATION/UPDATE for now .."
