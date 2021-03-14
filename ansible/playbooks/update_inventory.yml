@@ -1,0 +1,11 @@
+---
+- hosts: "localhost"
+  connection: local
+  become: false
+  gather_facts: true  
+  
+  tasks:
+   
+    - name : Execute script
+      command: 'ansible -i /etc/ansible/ec2.py ec2 --list'
+      register: result
